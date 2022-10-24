@@ -36,7 +36,7 @@ const scopeOptions = [1, 2, 3];
 const validationSchema = Yup.object({
   name: Yup.string().required('Required'),
   scope: Yup.string().required('Required'),
-  emission: Yup.number().required('Required'),
+  emission: Yup.number().required('Required').min(0, 'Must be positive'),
   date: Yup.date().required('Required'),
 });
 
@@ -60,6 +60,7 @@ export const AddEmissionEntryModal = ({
         date: format(new Date(), 'yyyy-MM-dd'),
       },
       resolver: yupResolver(validationSchema),
+      reValidateMode: 'onSubmit',
     });
 
   const onClose = () => {

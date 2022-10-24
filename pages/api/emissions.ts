@@ -18,9 +18,8 @@ export default async function handler(
     const type = req.query.type;
     const entries = await db.emissionEntry.findMany();
     if (type === 'scope') {
-      const byScope: { [scope: number]: number } = {};
+      const byScope: { [scope: number]: number } = { 1: 0, 2: 0, 3: 0 };
       for (const entry of entries) {
-        if (!(entry.scope in byScope)) byScope[entry.scope] = 0;
         byScope[entry.scope] += entry.emission;
       }
       res.status(200).json(byScope);
