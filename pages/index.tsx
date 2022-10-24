@@ -1,6 +1,8 @@
 import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import { AddEmissionEntryModal } from 'components/AddEmissionEntryModal';
 import { GraphTab, GraphTabs } from 'components/GraphsTabs';
+import { ScopePieGraph } from 'components/ScopePieGraph';
+import { WeeklyBarGraph } from 'components/WeeklyBarGraph';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 
@@ -29,7 +31,8 @@ const Home: NextPage = () => {
         </AppBar>
       </Box>
       <GraphTabs tab={tab} onChange={setTab} />
-      <h1>Graph</h1>
+      {tab === 'scope' && <ScopePieGraph />}
+      {tab === 'week' && <WeeklyBarGraph />}
       <AddEmissionEntryModal
         open={isAddEmissionEntryModalOpen}
         handleClose={() => setIsAddEmissionEntryModalOpen(false)}

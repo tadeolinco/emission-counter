@@ -16,5 +16,30 @@ export default async function handler(
 
   if (req.method === 'GET') {
     const type = req.query.type;
+    const entries = await db.emissionEntry.findMany();
+    if (type === 'scope') {
+      const byScope: { [scope: number]: number } = {};
+      for (const entry of entries) {
+        if (!(entry.scope in byScope)) byScope[entry.scope] = 0;
+        byScope[entry.scope] += entry.emission;
+      }
+      res.status(200).json(byScope);
+    }
+    if (type === 'week') {
+      const byDay: { [day: number]: number } = {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+      };
+      for (const entry of entries) {
+        const day = new Date(entry.date).getDay();
+        byDay[day] += entry.emission;
+      }
+      res.status(200).json(byDay);
+    }
   }
 }
