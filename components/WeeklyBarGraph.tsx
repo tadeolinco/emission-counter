@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Skeleton } from '@mui/material';
+import { Alert, AlertTitle, Box, Skeleton, Typography } from '@mui/material';
 import { useEmissionGraph } from 'api/hooks/useEmissionGraph';
 import {
   Bar,
@@ -35,6 +35,9 @@ export const WeeklyBarGraph = () => {
     );
 
   const graphData: { name: string; value: number; fill: string }[] = [];
+
+  let total = 0;
+
   for (const [key, value] of Object.entries(data?.data || {})) {
     let fill = '#f87171';
     if (key === '1') fill = '#fb923c';
@@ -44,8 +47,24 @@ export const WeeklyBarGraph = () => {
     if (key === '5') fill = '#818cf8';
     if (key === '6') fill = '#e879f9';
 
+    total += value as number;
+
     graphData.push({ name: days[+key], fill, value: value as number });
   }
+
+  const noData = total === 0;
+
+  if (noData)
+    return (
+      <Box
+        display={'flex'}
+        alignItems="center"
+        justifyContent={'center'}
+        py={6}
+      >
+        <Typography>No data yet</Typography>
+      </Box>
+    );
 
   return (
     <ResponsiveContainer width="100%" height={400}>
