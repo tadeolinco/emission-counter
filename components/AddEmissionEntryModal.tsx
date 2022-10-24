@@ -123,22 +123,19 @@ export const AddEmissionEntryModal = ({
               {renderError('name')}
             </Box>
             <Box mt={2}>
-              <FormControl
-                fullWidth
-                required
-                {...register('scope')}
-                error={!!formState.errors.scope}
-              >
+              <FormControl fullWidth required>
                 <InputLabel id="select-label-scope">Scope</InputLabel>
                 <Select
                   labelId="select-label-scope"
                   label="Scope"
                   placeholder="Scope"
+                  {...register('scope')}
+                  error={!!formState.errors.scope}
                 >
                   {scopeOptions.map((option) => (
                     <MenuItem
                       key={option}
-                      value={Number(option)}
+                      value={option}
                     >{`Scope ${option}`}</MenuItem>
                   ))}
                 </Select>
@@ -152,7 +149,7 @@ export const AddEmissionEntryModal = ({
                 type="number"
                 fullWidth
                 required
-                {...register('emission')}
+                {...register('emission', { valueAsNumber: true })}
                 error={!!formState.errors.emission}
               />
               {renderError('emission')}
