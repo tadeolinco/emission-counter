@@ -13,7 +13,7 @@ datasource db {
 model EmissionEntry {
   id       String   @id @default(uuid())
   name     String
-  scope    String
+  scope    Int
   emission Float
   date     DateTime
 }

@@ -1,7 +1,41 @@
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { AddEmissionEntryModal } from 'components/AddEmissionEntryModal';
+import { GraphTab, GraphTabs } from 'components/GraphsTabs';
 import type { NextPage } from 'next';
+import { useState } from 'react';
 
 const Home: NextPage = () => {
-  return null;
+  const [tab, setTab] = useState<GraphTab>('scope');
+  const [isAddEmissionEntryModalOpen, setIsAddEmissionEntryModalOpen] =
+    useState(false);
+
+  return (
+    <>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Emission Counter
+            </Typography>
+            <Button
+              color="inherit"
+              onClick={() => {
+                setIsAddEmissionEntryModalOpen(true);
+              }}
+            >
+              Add emission entry
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <GraphTabs tab={tab} onChange={setTab} />
+      <h1>Graph</h1>
+      <AddEmissionEntryModal
+        open={isAddEmissionEntryModalOpen}
+        handleClose={() => setIsAddEmissionEntryModalOpen(false)}
+      />
+    </>
+  );
 };
 
 export default Home;
