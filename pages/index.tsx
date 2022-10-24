@@ -4,6 +4,7 @@ import { GraphTab, GraphTabs } from 'components/GraphsTabs';
 import { ScopePieGraph } from 'components/ScopePieGraph';
 import { WeeklyBarGraph } from 'components/WeeklyBarGraph';
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useState } from 'react';
 
 const Home: NextPage = () => {
@@ -13,6 +14,9 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Emission Counter</title>
+      </Head>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
